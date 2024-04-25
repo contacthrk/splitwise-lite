@@ -6,6 +6,11 @@
 - Run `rails db:setup`, this will also seed data in the `User` model
 - Run `rails s` to start the server and `rails c` for rails console
 
+### Docker Setup
+- copy `database.yml.example` to `database.yml`
+- `docker-compose build`
+- `docker-compose up`
+
 ## Requirements
 
 - Ruby - 2.6.3
@@ -33,4 +38,4 @@
 
 
 ## Contact us
-If you need any help regarding this assignment or want to join [Commutatus](https://www.commutatus.com/), drop us an email at work@commutatus.com 
+If you need any help regarding this assignment or want to join [Commutatus](https://www.commutatus.com/), drop us an email at work@commutatus.com
