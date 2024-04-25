@@ -6,6 +6,7 @@ if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
 fi
 
+yarn
 bundle install
 rake db:create
 bundle exec rake db:migrate
