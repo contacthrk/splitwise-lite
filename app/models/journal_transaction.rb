@@ -1,11 +1,11 @@
 class JournalTransaction < ApplicationRecord
-  VAILD_SOURCES = ["PaymentComponent", "Settlement"].freeze
+  VAILD_SOURCES = %w[PaymentComponent, Settlement].freeze
 
   enum transaction_type: { debit: -1, credit: 1 }
 
   # associations
   belongs_to :user
-  belongs_to :account, class_name: "User"
+  belongs_to :account, class_name: 'User'
   belongs_to :source, polymorphic: true
 
   # validations
