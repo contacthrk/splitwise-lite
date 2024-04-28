@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :expenses
 
   root to: "static#dashboard"
-  get 'people/:id', to: 'static#person'
+  get 'people/:id', to: 'static#person', as: :person
 end
