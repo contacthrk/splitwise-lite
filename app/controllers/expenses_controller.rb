@@ -1,6 +1,4 @@
 class ExpensesController < ApplicationController
-  def index; end
-
   def create
     @expense_save_manager = ::ExpenseManager::Save.new(current_user.expenses.new(expense_params))
     @expense_saved = @expense_save_manager.call

@@ -1,7 +1,7 @@
 #expenseModal.modal.fade aria-hidden="true" aria-labelledby="expenseModalLabel" tabindex="-1" 
   .modal-dialog.modal-lg
     .modal-content
-      = simple_form_for @expense, remote: true do |f|
+      = simple_form_for Expense.new(payer: current_user, amount: 0, paid_at: Time.current), remote: true do |f|
         .modal-header
           h5#expenseModalLabel.modal-title Add an expense
           button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
@@ -17,7 +17,7 @@
           = f.input :amount, as: :hidden
 
           .d-none#payment_component_fields_copy
-            = f.fields_for :payment_components, @expense.payment_components.build(category: :manual, split: :custom), child_index: 0 do |pc_subform|
+            = f.fields_for :payment_components, f.object.payment_components.build(category: :manual, split: :custom), child_index: 0 do |pc_subform|
               = render partial: "static/payment_component_fields", locals: { pc_subform: pc_subform, users: @users }
 
           p
@@ -39,7 +39,7 @@
             = link_to "Remove", "#", class: "h6 mx-3 text-danger cursor-pointer text-decoration-none d-none", id: "remove-tip-btn"
           #tip-payment-component-container.d-none
             .payment-component
-              = f.fields_for :payment_components, @expense.payment_components.build(category: :tip, split: :custom), child_index: 0 do |pc_subform|
+              = f.fields_for :payment_components, f.object.payment_components.build(category: :tip, split: :custom), child_index: 0 do |pc_subform|
                 = render partial: "static/payment_component_fields", locals: { pc_subform: pc_subform, users: @users }
 
           h4.mt-2
@@ -48,7 +48,7 @@
             = link_to "Remove", "#", class: "h6 mx-3 text-danger cursor-pointer text-decoration-none d-none", id: "remove-tax-btn"
           #tax-payment-component-container.d-none
             .payment-component
-              = f.fields_for :payment_components, @expense.payment_components.build(category: :tax, split: :custom), child_index: 1 do |pc_subform|
+              = f.fields_for :payment_components, f.object.payment_components.build(category: :tax, split: :custom), child_index: 1 do |pc_subform|
                 = render partial: "static/payment_component_fields", locals: { pc_subform: pc_subform, users: @users }
 
           h4.mt-5.border-top.border-bottom

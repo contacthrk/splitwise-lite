@@ -11,8 +11,28 @@ html
   - else
     body.d-flex.flex-column.h-100
       = render 'layouts/top_nav_bar'
-    main.flex-shrink-0
-      .container
-        = yield
+
+      main.flex-shrink-0
+        .container
+          .dashboard-wrapper
+            aside.side-bar-area
+              .friends-list
+                p.friends-list-header FRIENDS
+                - @users.each do |u|
+                  - if u.id != current_user&.id
+                    = link_to u.name, person_path(u), class: "friend-name"
+
+            .main-area
+              .top-bar
+                h1.top-bar-title
+                  = link_to "Dashboard", root_path, class: "text-decoration-none text-dark"
+                .top-bar-actions
+                  button.btn.btn-primary type="button" data-bs-toggle="modal" data-bs-target="#expenseModal"  Add an expense
+                  button.btn.btn-secondary type="button" data-bs-toggle="modal" data-bs-target="#settlementModal"  Settle up
+
+              = yield
+
+      = render "new_expense_modal"
+      = render "new_settlement_modal"
 
 = render 'layouts/jgrowl_notifications'

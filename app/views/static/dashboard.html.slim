@@ -1,46 +1,29 @@
-.dashboard-wrapper
-  aside.side-bar-area
-    .friends-list
-      p.friends-list-header FRIENDS
-      - @users.each do |u|
-        - if u.id != current_user&.id
-          = link_to u.name, person_path(u), class: "friend-name"
-  .main-area
-    .top-bar
-      h1.top-bar-title Dashboard
-      .top-bar-actions
-        button.btn.btn-primary type="button" data-bs-toggle="modal" data-bs-target="#expenseModal"  Add an expense
-        button.btn.btn-secondary type="button" data-bs-toggle="modal" data-bs-target="#settlementModal"  Settle up
+.dashboard-balances
+  .balances-bar
+    .balance-block
+      p total balance
+      p #{number_to_currency(@summary.total)}
+    .balance-block
+      p you owe
+      p #{number_to_currency(@summary.borrowed)}
+    .balance-block
+      p you are owed
+      p #{number_to_currency(@summary.loaned)}
+  .dashboard-detail
+    .detail-block
+      h2.detail-title you owe
+      - @summary.creditors.each do |r|
+        .user-detail
+          img.user-img alt="profile" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" /
+          .user-info
+            p #{r.account.name}
+            p you owe #{number_to_currency(r.balance.abs)}
 
-    .dashboard-balances
-      .balances-bar
-        .balance-block
-          p total balance
-          p #{number_to_currency(@summary.total)}
-        .balance-block
-          p you owe
-          p #{number_to_currency(@summary.borrowed)}
-        .balance-block
-          p you are owed
-          p #{number_to_currency(@summary.loaned)}
-      .dashboard-detail
-        .detail-block
-          h2.detail-title you owe
-          - @summary.creditors.each do |r|
-            .user-detail
-              img.user-img alt="profile" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" /
-              .user-info
-                p #{r.account.name}
-                p you owe #{number_to_currency(r.balance.abs)}
-
-        .detail-block
-          h2.detail-title you are owed
-          - @summary.debtors.each do |r|
-            .user-detail
-              img.user-img alt="profile" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" /
-              .user-info
-                p #{r.account.name}
-                p owes you #{number_to_currency(r.balance.abs)}
-
-= render "new_expense_modal"
-= render "new_settlement_modal"
+    .detail-block
+      h2.detail-title you are owed
+      - @summary.debtors.each do |r|
+        .user-detail
+          img.user-img alt="profile" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" /
+          .user-info
+            p #{r.account.name}
+            p owes you #{number_to_currency(r.balance.abs)}
