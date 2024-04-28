@@ -1,0 +1,28 @@
+.row
+  .col-6
+    - if pc_subform.object.manual_category?
+      = pc_subform.input :description, required: true, label: false, placeholder: "Item Description"
+    - else
+      = pc_subform.hidden_field :description, value: pc_subform.object.category
+
+    = pc_subform.input :amount, required: true, label: false, placeholder: "Item Amount", input_html: { class: "mt-2 payment_component_amount" }
+    = pc_subform.input :category, as: :hidden
+    = pc_subform.input :split, as: :select, collection: PaymentComponent.splits.keys, label: false, input_html: { class: "mt-2 payment_component_split", required: true }
+    = pc_subform.input :category, as: :hidden
+
+  .col-6
+    - users.each do |user|
+      = pc_subform.fields_for :split_payments, pc_subform.object.split_payments.build(user: user) do |sp_subform|
+        .input-group.mb-2.split-payment-container
+          span.input-group-text
+            input.user-select-checkbox.form-check-input[type="checkbox" checked="true"]
+          span.input-group-text
+            = user.name
+            = sp_subform.hidden_field :user_id, class: "split-payment-user-id"
+          span.input-group-text
+            | $
+          = sp_subform.number_field :amount, class: "split-payment-amount form-control numeric decimal required", required: true
+
+- if pc_subform.object.manual_category?
+  .mt-2
+    = link_to "Remove Item", "", class: "btn btn-danger btn-sm", id: "payment-component-remove-btn"

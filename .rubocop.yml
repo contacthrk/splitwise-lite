@@ -11,3 +11,5 @@ Style/FrozenStringLiteralComment:
 AllCops:
   Exclude:
     - 'db/**/*'
+    - 'config/initializers/*'
+  NewCops: disable

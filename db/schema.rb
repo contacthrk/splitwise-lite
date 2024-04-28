@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_25_105712) do
+ActiveRecord::Schema.define(version: 2024_04_26_050133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,9 @@ ActiveRecord::Schema.define(version: 2024_04_25_105712) do
     t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "payer_id", null: false
     t.index ["creator_id"], name: "index_expenses_on_creator_id"
+    t.index ["payer_id"], name: "index_expenses_on_payer_id"
   end
 
   create_table "journal_transactions", force: :cascade do |t|
@@ -70,7 +72,6 @@ ActiveRecord::Schema.define(version: 2024_04_25_105712) do
     t.bigint "payment_component_id", null: false
     t.bigint "user_id", null: false
     t.decimal "amount", precision: 10, scale: 2, null: false
-    t.integer "category", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["payment_component_id"], name: "index_split_payments_on_payment_component_id"
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 2024_04_25_105712) do
   end
 
   add_foreign_key "expenses", "users", column: "creator_id"
+  add_foreign_key "expenses", "users", column: "payer_id"
   add_foreign_key "journal_transactions", "users"
   add_foreign_key "journal_transactions", "users", column: "account_id"
   add_foreign_key "payment_components", "expenses"

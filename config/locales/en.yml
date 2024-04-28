@@ -30,4 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      payment_component: "Item"
+      expense:
+        payment_components: "Items"
+    attributes:
+      expense:
+        payment_components: "Items"

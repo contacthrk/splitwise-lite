@@ -14,6 +14,9 @@ window.jQuery = jQuery
 
 import 'bootstrap/dist/js/bootstrap'
 require("jgrowl")
+
+require("src/expense")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

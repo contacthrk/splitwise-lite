@@ -1,5 +1,5 @@
 class JournalTransaction < ApplicationRecord
-  VAILD_SOURCES = %w[PaymentComponent, Settlement].freeze
+  VAILD_SOURCES = %w[PaymentComponent Settlement].freeze
 
   enum transaction_type: { debit: -1, credit: 1 }
 
@@ -10,5 +10,5 @@ class JournalTransaction < ApplicationRecord
 
   # validations
   validates :amount, :paid_at, :transaction_type, presence: true
-  validates :resource_type, inclusion: { in: VAILD_SOURCES }
+  validates :source_type, inclusion: { in: VAILD_SOURCES }
 end

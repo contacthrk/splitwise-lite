@@ -1,0 +1,5 @@
+- if @expense_saved
+  | $('#expenseModal').modal('hide');
+  | window.location.href = "#{root_path}";
+- else
+  | alert("#{"Errors: \\n#{@expense_save_manager.errors.join("\\n")}".html_safe}");

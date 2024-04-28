@@ -1,0 +1,61 @@
+#expenseModal.modal.fade aria-hidden="true" aria-labelledby="expenseModalLabel" tabindex="-1" 
+  .modal-dialog.modal-lg
+    .modal-content
+      = simple_form_for @expense, remote: true do |f|
+        .modal-header
+          h5#expenseModalLabel.modal-title Add an expense
+          button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+        .modal-body
+          = f.input :description, placeholder: "Expense description", required: true
+
+          .row
+            .col-6
+              = f.input :paid_at, as: :date, html5: true, placeholder: "Expense paid date", required: true
+            .col-6
+              = f.input :payer_id, collection: @users.pluck(:name, :id), required: true
+
+          = f.input :amount, as: :hidden
+
+          .d-none#payment_component_fields_copy
+            = f.fields_for :payment_components, @expense.payment_components.build(category: :manual, split: :custom), child_index: 0 do |pc_subform|
+              = render partial: "static/payment_component_fields", locals: { pc_subform: pc_subform, users: @users }
+
+          p
+            .h4.mt-4.d-inline-block
+              | Items
+            = link_to "Add Item", "#", class: "mx-3", id: "add-payment-component"
+
+          .payment-components-container
+
+          h4.border-top.border-bottom
+            | Subtotal:
+            '
+            span.h5 $
+            span.h5#expense-subtotal 0
+
+          h4.mt-2
+            | Tip
+            = link_to "Add", "#", class: "h6 mx-3 text-primary cursor-pointer text-decoration-none", id: "add-tip-btn"
+            = link_to "Remove", "#", class: "h6 mx-3 text-danger cursor-pointer text-decoration-none d-none", id: "remove-tip-btn"
+          #tip-payment-component-container.d-none
+            .payment-component
+              = f.fields_for :payment_components, @expense.payment_components.build(category: :tip, split: :custom), child_index: 0 do |pc_subform|
+                = render partial: "static/payment_component_fields", locals: { pc_subform: pc_subform, users: @users }
+
+          h4.mt-2
+            | Tax
+            = link_to "Add", "#", class: "h6 mx-3 text-primary cursor-pointer text-decoration-none", id: "add-tax-btn"
+            = link_to "Remove", "#", class: "h6 mx-3 text-danger cursor-pointer text-decoration-none d-none", id: "remove-tax-btn"
+          #tax-payment-component-container.d-none
+            .payment-component
+              = f.fields_for :payment_components, @expense.payment_components.build(category: :tax, split: :custom), child_index: 1 do |pc_subform|
+                = render partial: "static/payment_component_fields", locals: { pc_subform: pc_subform, users: @users }
+
+          h4.mt-5.border-top.border-bottom
+            | Grand Total:
+            '
+            span.h5 $
+            span.h5#expense-grandtotal 0
+
+        .modal-footer
+          = f.submit "Save", class: "btn btn-primary mt-4"

@@ -5,6 +5,9 @@ h1.h3.mb-3.fw-normal Please sign up
       = f.input :email, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingInput' }, label: false, wrapper: false
       label for="floatingInput" Email address
     .form-floating
+      = f.input :name, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingInput' }, label: false, wrapper: false
+      label for="floatingInput" Name
+    .form-floating
       = f.input :password, input_html: { autocomplete: 'off', class: 'form-control', id: 'floatingPassword' }, label: false, wrapper: false
       label for="floatingPassword" Password
     .form-floating
