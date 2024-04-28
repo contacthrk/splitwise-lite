@@ -1,6 +1,6 @@
 class StaticController < ApplicationController
   def dashboard
-    @users = User.where.not(id: current_user.id)
+    @users = User.all
     setup_new_expense
     @summary = BalanceSheet::Summary.new(current_user).call
   end

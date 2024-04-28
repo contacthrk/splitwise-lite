@@ -1,0 +1,25 @@
+#settlementModal.modal.fade aria-hidden="true" aria-labelledby="settlementModalLabel" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      = simple_form_for Settlement.new(payer: current_user), remote: true do |f|
+        .modal-header
+          h5#settlementModalLabel.modal-title Add an settlement
+          button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button"
+        .modal-body
+          .input-group
+            span.input-group-text
+              | $
+            = f.number_field :amount, placeholder: "Settlement Amount", required: true, class: "form-control"
+
+          .row.mt-2
+            .col-4
+              = f.input :paid_at, as: :date, html5: true, placeholder: "Settlement paid date", required: true
+            .col-4
+              = f.input :payer_id, collection: @users.pluck(:name, :id), required: true
+            .col-4
+              = f.input :payee_id, collection: @users.pluck(:name, :id), required: true
+
+          = f.input :notes
+
+        .modal-footer
+          = f.submit "Save", class: "btn btn-primary mt-4"

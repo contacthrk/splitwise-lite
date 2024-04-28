@@ -3,13 +3,14 @@
     .friends-list
       p.friends-list-header FRIENDS
       - @users.each do |u|
-        = link_to u.name, person_path(u), class: "friend-name"
+        - if u.id != current_user&.id
+          = link_to u.name, person_path(u), class: "friend-name"
   .main-area
     .top-bar
       h1.top-bar-title Dashboard
       .top-bar-actions
         button.btn.btn-primary type="button" data-bs-toggle="modal" data-bs-target="#expenseModal"  Add an expense
-        button.btn.btn-secondary type="button"  Settle up
+        button.btn.btn-secondary type="button" data-bs-toggle="modal" data-bs-target="#settlementModal"  Settle up
 
     .dashboard-balances
       .balances-bar
@@ -42,3 +43,4 @@
                 p owes you #{number_to_currency(r.balance.abs)}
 
 = render "new_expense_modal"
+= render "new_settlement_modal"

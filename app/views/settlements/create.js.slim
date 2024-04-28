@@ -1,0 +1,5 @@
+- if @settlement.persisted?
+  | $('#settlementModal').modal('hide');
+  | window.location.href = "#{root_path}";
+- else
+  | alert("#{"Errors: \\n#{@settlement.errors.full_messages.join("\\n")}".html_safe}");
