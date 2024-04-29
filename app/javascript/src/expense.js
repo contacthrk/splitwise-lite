@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   // 0 and 1 are for tax and tip payment components
   var indexForNextPaymentComponent = 2;
   $("#payment_component_fields_copy :input").attr("disabled", true);
