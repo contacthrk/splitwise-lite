@@ -1,5 +1,5 @@
 class SettlementsController < ApplicationController
-  before_action :fetch_settlement, only: :show
+  before_action :fetch_settlement, only: [:show, :destroy]
 
   def create
     @settlement = Settlement.new(settlement_params)
@@ -15,6 +15,11 @@ class SettlementsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def destroy
+    @settlement.destroy
+    redirect_back fallback_location: root_path, notice: "Settlement deleted successfully"
   end
 
   private

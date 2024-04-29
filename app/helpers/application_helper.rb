@@ -20,4 +20,14 @@ module ApplicationHelper
                end
     link_to txt, src_path, remote: true
   end
+
+  def journal_source_deletion_link(txt, source)
+    src_path = case source
+               when Settlement
+                 settlement_path(source)
+               when Expense
+                 expense_path(source)
+               end
+    link_to txt, src_path, method: :delete, class: "remove-btn", data: { confirm: "Are you sure ?" }
+  end
 end

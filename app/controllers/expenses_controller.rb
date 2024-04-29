@@ -1,5 +1,5 @@
 class ExpensesController < ApplicationController
-  before_action :fetch_expense, only: :show
+  before_action :fetch_expense, only: [:show, :destroy]
 
   def create
     @expense_save_manager = ::ExpenseManager::Save.new(current_user.expenses.new(expense_params))
@@ -16,6 +16,11 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def destroy
+    @expense.destroy
+    redirect_back fallback_location: root_path, notice: "Expense deleted successfully"
   end
 
   private

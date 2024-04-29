@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  resources :expenses, only: [:create, :show]
-  resources :settlements, only: [:create, :show]
+  resources :expenses, only: [:create, :show, :destroy]
+  resources :settlements, only: [:create, :show, :destroy]
 
   root to: "static#dashboard"
   get 'people/:id', to: 'static#person', as: :person
