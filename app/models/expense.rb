@@ -2,7 +2,7 @@ class Expense < ApplicationRecord
   # associations
   belongs_to :creator, class_name: 'User'
   belongs_to :payer, class_name: 'User'
-  has_many :payment_components, dependent: :destroy
+  has_many :payment_components, -> { order(:category) }, dependent: :destroy, inverse_of: :expense
 
   # validations
   validates :paid_at, :description, presence: true

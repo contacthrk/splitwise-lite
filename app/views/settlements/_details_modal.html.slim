@@ -1,0 +1,23 @@
+#settlementDetailsModal.modal.fade aria-hidden="true" aria-labelledby="settlementModalLabel" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#settlementModalLabel.modal-title Settlement Details
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button"
+      .modal-body
+        .px-4
+          .row.mt-2
+            .col-3 Payer:
+            .col-9.text-primary = settlement.payer.name
+
+          .row.mt-2
+            .col-3 Payee:
+            .col-9.text-primary = settlement.payee.name
+
+          .row.mt-2
+            .col-3 Paid on:
+            .col-9.text-primary = settlement.paid_at.strftime("%B %d, %Y")
+
+          .row.mt-2
+            .col-3 Amount:
+            .col-9.text-success = number_to_currency(settlement.amount, strip_insignificant_zeros: true)

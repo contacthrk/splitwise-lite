@@ -1,4 +1,6 @@
 class ExpensesController < ApplicationController
+  before_action :fetch_expense, only: :show
+
   def create
     @expense_save_manager = ::ExpenseManager::Save.new(current_user.expenses.new(expense_params))
     @expense_saved = @expense_save_manager.call
@@ -10,7 +12,17 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
+
+  def fetch_expense
+    @expense = Expense.where(id: params[:id]).includes(payment_components: :split_payments).first
+  end
 
   def expense_params
     params

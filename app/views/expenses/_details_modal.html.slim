@@ -1,0 +1,56 @@
+#expenseDetailsModal.modal.fade aria-hidden="true" aria-labelledby="expenseModalLabel" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#expenseModalLabel.modal-title Expense Details
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button"
+      .modal-body
+        .px-4
+          .row.mt-2
+            .col-4 Description:
+            .col-8.text-primary = expense.description
+
+          .row.mt-2
+            .col-4 Payer:
+            .col-8.text-primary = expense.payer.name
+
+          .row.mt-2
+            .col-4 Creator:
+            .col-8.text-primary = expense.creator.name
+
+          .row.mt-2
+            .col-4 Paid on:
+            .col-8.text-primary = expense.paid_at.strftime("%B %d, %Y")
+
+          .row.mt-2
+            .col-4 Total Amount:
+            .col-8.text-success = number_to_currency(expense.amount, strip_insignificant_zeros: true)
+
+
+          h4.mt-4 Items
+
+          #paymentComponentsAccordian.accordion
+            - expense.payment_components.each do |payment_component|
+              .accordion-item
+                h2.accordion-header
+                  button.accordion-button.collapsed[type="button" data-bs-toggle="collapse" data-bs-target="#paymentComponentAccordianItem#{payment_component.id}" aria-expanded="true"]
+                    = payment_component.description
+
+                    span.badge.bg-success.ms-auto.me-2
+                      = number_to_currency(payment_component.amount, strip_insignificant_zeros: true)
+
+                    - if payment_component.equal_split?
+                      span.badge.bg-primary.primary-component-split-category Equal Split
+                    - else
+                      span.badge.bg-secondary.primary-component-split-category Custom Split
+
+                .accordion-collapse.collapse[data-bs-parent="#paymentComponentsAccordian" id="paymentComponentAccordianItem#{payment_component.id}"]
+                  .accordion-body
+                    - payment_component.split_payments.each do |split_payment|
+                      .row.mt-2
+                        .col-6 = split_payment.user.name
+                        .col-6.text-success = number_to_currency(split_payment.amount, strip_insignificant_zeros: true)
+
+                    .row.mt-2.border-top.border-bottom
+                      .col-6 Total Amount
+                      .col-6.text-success = number_to_currency(payment_component.amount, strip_insignificant_zeros: true)

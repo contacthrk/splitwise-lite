@@ -1,4 +1,6 @@
 class SettlementsController < ApplicationController
+  before_action :fetch_settlement, only: :show
+
   def create
     @settlement = Settlement.new(settlement_params)
 
@@ -9,7 +11,17 @@ class SettlementsController < ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
+
+  def fetch_settlement
+    @settlement = Settlement.find(params[:id])
+  end
 
   def settlement_params
     params
