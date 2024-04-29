@@ -1,9 +1,10 @@
 module ExpenseManager
   class Save
-    attr_reader :errors
+    attr_reader :expense, :errors
 
-    def initialize(rec)
+    def initialize(rec, expense_attributes)
       @expense = rec
+      @expense_attributes = expense_attributes
       @errors = []
     end
 
@@ -19,10 +20,11 @@ module ExpenseManager
 
     private
 
-    attr_reader :expense
+    attr_reader :expense_attributes
 
     def save_expense_and_create_journal_entries!
       ActiveRecord::Base.transaction do
+        expense.assign_attributes(expense_attributes)
         expense.save!
         expense.payment_components.each do |pc|
           recreate_journal_entries!(pc)

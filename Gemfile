@@ -18,11 +18,14 @@ gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  gem 'fabrication'
+  gem 'faker'
+  gem 'rspec-rails', '~> 6.1.0'
+  gem 'shoulda-matchers'
 end
 
 group :development do
-  gem 'fabrication'
-  gem 'faker'
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'spring'

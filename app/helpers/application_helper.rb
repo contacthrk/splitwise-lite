@@ -28,6 +28,6 @@ module ApplicationHelper
                when Expense
                  expense_path(source)
                end
-    link_to txt, src_path, method: :delete, class: "remove-btn", data: { confirm: "Are you sure ?" }
+    link_to txt, src_path, method: :delete, class: 'remove-btn', data: { confirm: 'Are you sure ?' }
   end
 end

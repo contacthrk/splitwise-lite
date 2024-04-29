@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
   before_action :fetch_expense, only: [:show, :destroy]
 
   def create
-    @expense_save_manager = ::ExpenseManager::Save.new(current_user.expenses.new(expense_params))
+    @expense_save_manager = ::ExpenseManager::Save.new(current_user.expenses.build, expense_params)
     @expense_saved = @expense_save_manager.call
 
     flash[:notice] = 'Expense created successfully' if @expense_saved
@@ -20,7 +20,7 @@ class ExpensesController < ApplicationController
 
   def destroy
     @expense.destroy
-    redirect_back fallback_location: root_path, notice: "Expense deleted successfully"
+    redirect_back fallback_location: root_path, notice: 'Expense deleted successfully'
   end
 
   private

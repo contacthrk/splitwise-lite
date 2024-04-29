@@ -33,8 +33,6 @@ en:
   activerecord:
     models:
       payment_component: "Item"
-      expense:
-        payment_components: "Items"
     attributes:
       expense:
         payment_components: "Items"

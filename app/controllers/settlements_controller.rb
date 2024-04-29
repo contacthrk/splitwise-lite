@@ -19,7 +19,7 @@ class SettlementsController < ApplicationController
 
   def destroy
     @settlement.destroy
-    redirect_back fallback_location: root_path, notice: "Settlement deleted successfully"
+    redirect_back fallback_location: root_path, notice: 'Settlement deleted successfully'
   end
 
   private
