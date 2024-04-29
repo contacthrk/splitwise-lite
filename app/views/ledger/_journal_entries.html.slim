@@ -1,0 +1,17 @@
+.expenses-list
+  - if entries.length.zero?
+    center
+      h5 Start recording expenses ! Hit it up ^^
+  - entries.each do |journal|
+    .expense-item
+      .item-lhs
+        p = display_date(journal.date)
+        p = journal_narration_link(journal.narration, journal.source)
+      .item-rhs
+        .you-details
+          p = journal.left_narration
+          p = display_money(journal.left_amount)
+        .you-details
+          p = journal.right_narration
+          p = display_money(journal.right_amount)
+      button.remove-btn ❌

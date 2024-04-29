@@ -1,2 +1,2 @@
-| $('#expense-details-modal-container').append("#{ escape_javascript render(partial: 'expenses/details_modal', locals: { expense: @expense }) }");
+| $('#expense-details-modal-container').html("#{ escape_javascript render(partial: 'expenses/details_modal', locals: { expense: @expense }) }");
 | $("#expenseDetailsModal").modal("show");

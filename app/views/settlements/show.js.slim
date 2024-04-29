@@ -1,2 +1,2 @@
-| $('#settlement-details-modal-container').append("#{ escape_javascript render(partial: 'settlements/details_modal', locals: { settlement: @settlement }) }");
+| $('#settlement-details-modal-container').html("#{ escape_javascript render(partial: 'settlements/details_modal', locals: { settlement: @settlement }) }");
 | $("#settlementDetailsModal").modal("show");

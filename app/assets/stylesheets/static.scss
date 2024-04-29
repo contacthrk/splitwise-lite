@@ -15,6 +15,10 @@
   width: 180px;
 }
 
+.friends-list {
+  margin-bottom: 15px;
+}
+
 .friends-list .friends-list-header {
   background: #f6f6f6;
   color: #ccc;
@@ -40,6 +44,10 @@
 
 .friends-list .friend-name:hover {
   background: #eee;
+}
+
+.friends-list .friend-name.active {
+  background: #CDF;
 }
 
 .dashboard-wrapper .main-area {
@@ -179,6 +187,7 @@
 
 .item-rhs .you-details {
   text-align: center;
+  min-width: 80px;
 }
 
 .item-rhs .you-details:nth-child(2) {

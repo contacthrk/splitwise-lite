@@ -17,11 +17,13 @@ html
           .dashboard-wrapper
             aside.side-bar-area
               .friends-list
+                p.friends-list-header My Links
+                = link_to "My expenses", person_path(current_user), class: "friend-name #{sidebar_highlight_class(current_user.id)}"
+              .friends-list
                 p.friends-list-header FRIENDS
                 - @users.each do |u|
                   - if u.id != current_user&.id
-                    = link_to u.name, person_path(u), class: "friend-name"
-
+                    = link_to u.name, person_path(u), class: "friend-name #{sidebar_highlight_class(u.id)}"
             .main-area
               .top-bar
                 h1.top-bar-title

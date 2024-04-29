@@ -1,5 +1,5 @@
 require 'ostruct'
-module BalanceSheet
+module Ledger
   class Summary
     def initialize(rec)
       @user = rec
