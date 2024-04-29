@@ -1,5 +1,13 @@
 # Rails Assignment - Splitwise
 
+## Details & Assumptions
+- Using `JournalTransaction` for double entry book keeping of every transaction that happens in the system b/w two users.
+- Due to time limitation skipped Friendship model b/w users and assuming all users present in system are friends. This is just for testing purposes. For this reason don't seed data instead create users from http://localhost:3000/users/sign_up
+- Friend's expenses and User's expenses are built close to how [splitwise](https://www.splitwise.com/) does
+- Edit functionality not implemented.
+- Added limited specs due to time consideration
+- There is lot of scope of refactoring but UI took more time than expected specially Expense form and the logic for showing various expense listing w.r.t logged in user.
+
 ## Setup
 - Fork the repository. 
 - Clone the repository in your local machine.
