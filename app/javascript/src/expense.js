@@ -129,19 +129,11 @@ function syncPaymentComponent(paymentComponent) {
     var parsedValue = parseFloat(paymentComponent.find(".payment_component_amount").val())
 
     var selectedUsersCount = paymentComponent.find(".split-payment-container").find(".user-select-checkbox:checked").length;
-    var equalShareAmountAndOffset = calculateEqualShareAndOffset(selectedUsersCount, parsedValue)
-    var offsetAdded = false;
+    var userShares = calculateUserShares(selectedUsersCount, parsedValue);
 
     paymentComponent.find(".split-payment-container").each(function() {
-      if ($(this).find(".user-select-checkbox:checked").length > 0) {
-        if (offsetAdded) {
-          $(this).find(".split-payment-amount").val(equalShareAmountAndOffset.equalShareAmount);
-        } else {
-          $(this).find(".split-payment-amount").val(
-            (equalShareAmountAndOffset.equalShareAmount + equalShareAmountAndOffset.offset).toFixed(2)
-          );
-          offsetAdded = true;
-        }
+      if ((userShares) && ($(this).find(".user-select-checkbox:checked").length > 0)) {
+        $(this).find(".split-payment-amount").val(userShares.shift());
       } else {
         $(this).find(".split-payment-amount").val(0);
       }
@@ -152,12 +144,18 @@ function syncPaymentComponent(paymentComponent) {
   }
 }
 
-function calculateEqualShareAndOffset(usersCount, amount) {
-  if ((usersCount == 0) || isNaN(amount)) { return { equalShareAmount: 0, offset: 0 } }
+function calculateUserShares(usersCount, amount) {
+  if ((usersCount == 0) || isNaN(amount)) { return }
 
-  var equalShareAmount = Math.floor((amount/usersCount) * 100) / 100;
-  var totalUsingEqualShare = parseFloat((equalShareAmount * usersCount).toFixed(2));
-  var offset = parseFloat((amount - totalUsingEqualShare).toFixed(2));
+  var userShares = [], total = amount, divider = usersCount;
 
-  return { equalShareAmount: equalShareAmount, offset: offset }
+  while (divider > 0) {
+    var share = Math.round((total/divider) * 100) / 100;
+    userShares.push(share);
+
+    total -= share;
+    divider -= 1;
+  }
+
+  return userShares;
 }
